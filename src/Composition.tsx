@@ -16,6 +16,10 @@ import {
   VIDEO09_SNOWBALL_AVALANCHE_DURATION_IN_FRAMES,
   Video09_SnowballAvalanche,
 } from "./Video09_SnowballAvalanche";
+import {
+  VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES,
+  Video14_RentVsBuy,
+} from "./Video14_RentVsBuy";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -57,6 +61,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video09-SnowballAvalanche"
         component={Video09_SnowballAvalanche}
         durationInFrames={VIDEO09_SNOWBALL_AVALANCHE_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video14-RentVsBuy"
+        component={Video14_RentVsBuy}
+        durationInFrames={VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
