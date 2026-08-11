@@ -8,6 +8,10 @@ import {
   VIDEO07_TAKE_HOME_DURATION_IN_FRAMES,
   Video07_TakeHome,
 } from "./Video07_TakeHome";
+import {
+  VIDEO08_RENT_LIE_DURATION_IN_FRAMES,
+  Video08_RentLie,
+} from "./Video08_RentLie";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -33,6 +37,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video07-TakeHome"
         component={Video07_TakeHome}
         durationInFrames={VIDEO07_TAKE_HOME_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video08-RentLie"
+        component={Video08_RentLie}
+        durationInFrames={VIDEO08_RENT_LIE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
