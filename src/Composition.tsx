@@ -20,6 +20,10 @@ import {
   VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES,
   Video14_RentVsBuy,
 } from "./Video14_RentVsBuy";
+import {
+  VIDEO27_PAYCHECK_BELT_DURATION_IN_FRAMES,
+  Video27_PaycheckBelt,
+} from "./Video27_PaycheckBelt";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -69,6 +73,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video14-RentVsBuy"
         component={Video14_RentVsBuy}
         durationInFrames={VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video27-PaycheckBelt"
+        component={Video27_PaycheckBelt}
+        durationInFrames={VIDEO27_PAYCHECK_BELT_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
