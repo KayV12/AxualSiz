@@ -6,15 +6,12 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { ARCHIVO_WEIGHTS, COLORS, SAFE_AREA } from "./theme";
 
 const { fontFamily } = loadFont("normal", {
-  weights: ["400", "600", "800"],
+  weights: [...ARCHIVO_WEIGHTS],
   subsets: ["latin"],
 });
-
-const CREAM = "#FED7A0";
-const ORANGE = "#FE6D00";
-const BROWN = "#843121";
 
 const MONTHLY = 7.35;
 const RATE = 0.07 / 12;
@@ -78,14 +75,14 @@ export const ActualSize: React.FC = () => {
   });
 
   return (
-    <AbsoluteFill style={{ background: "#000" }}>
+    <AbsoluteFill style={{ background: COLORS.black }}>
       <div
         style={{
           position: "absolute",
-          left: 76,
-          right: 76,
-          top: 200,
-          bottom: 456,
+          left: SAFE_AREA.sides,
+          right: SAFE_AREA.sides,
+          top: SAFE_AREA.top,
+          bottom: SAFE_AREA.bottom,
           fontFamily,
         }}
       >
@@ -94,7 +91,7 @@ export const ActualSize: React.FC = () => {
             fontSize: 26,
             letterSpacing: "0.26em",
             textTransform: "uppercase",
-            color: BROWN,
+            color: COLORS.brown,
             fontWeight: 600,
           }}
         >
@@ -107,11 +104,11 @@ export const ActualSize: React.FC = () => {
             fontSize: 92,
             lineHeight: 1.06,
             fontWeight: 800,
-            color: CREAM,
+            color: COLORS.cream,
             letterSpacing: "-0.03em",
           }}
         >
-          Even <span style={{ color: ORANGE }}>$7.35</span> a month
+          Even <span style={{ color: COLORS.orange }}>$7.35</span> a month
           <br />
           is not nothing.
         </div>
@@ -131,7 +128,11 @@ export const ActualSize: React.FC = () => {
               style={{
                 width: 44,
                 height: 44,
-                background: c.on ? (c.gain ? ORANGE : CREAM) : "#141414",
+                background: c.on
+                  ? c.gain
+                    ? COLORS.orange
+                    : COLORS.cream
+                  : "#141414",
                 transform: `scale(${c.on ? 0.5 + 0.5 * c.localP : 0.5})`,
                 opacity: c.on ? c.localP : 0,
               }}
@@ -145,7 +146,7 @@ export const ActualSize: React.FC = () => {
             fontSize: 150,
             lineHeight: 1,
             fontWeight: 800,
-            color: done ? ORANGE : CREAM,
+            color: done ? COLORS.orange : COLORS.cream,
             fontVariantNumeric: "tabular-nums",
             letterSpacing: "-0.045em",
           }}
@@ -158,13 +159,13 @@ export const ActualSize: React.FC = () => {
             marginTop: 16,
             fontSize: 30,
             letterSpacing: "0.06em",
-            color: BROWN,
+            color: COLORS.brown,
             fontWeight: 600,
             textTransform: "uppercase",
           }}
         >
-          Year <span style={{ color: CREAM }}>{year}</span> &nbsp;&middot;&nbsp; 7%
-          a year
+          Year <span style={{ color: COLORS.cream }}>{year}</span>{" "}
+          &nbsp;&middot;&nbsp; 7% a year
         </div>
 
         <div
@@ -188,7 +189,7 @@ export const ActualSize: React.FC = () => {
                 fontSize: 26,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: BROWN,
+                color: COLORS.brown,
                 fontWeight: 600,
               }}
             >
@@ -200,7 +201,7 @@ export const ActualSize: React.FC = () => {
                 fontWeight: 800,
                 fontVariantNumeric: "tabular-nums",
                 letterSpacing: "-0.02em",
-                color: CREAM,
+                color: COLORS.cream,
               }}
             >
               {money(MONTHLY * MONTHS)}
@@ -220,7 +221,7 @@ export const ActualSize: React.FC = () => {
                 fontSize: 26,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: BROWN,
+                color: COLORS.brown,
                 fontWeight: 600,
               }}
             >
@@ -232,7 +233,7 @@ export const ActualSize: React.FC = () => {
                 fontWeight: 800,
                 fontVariantNumeric: "tabular-nums",
                 letterSpacing: "-0.02em",
-                color: ORANGE,
+                color: COLORS.orange,
               }}
             >
               {money(futureValue(MONTHS))}
