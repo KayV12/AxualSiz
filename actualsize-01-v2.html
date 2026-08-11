@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>actual-size — 01</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden}
+  #fit{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+
+  /* fixed 1080x1920 canvas — scaled to fit by JS. never distorts. */
+  #stage{
+    width:1080px;height:1920px;flex:none;transform-origin:center center;
+    background:#000;position:relative;overflow:hidden;
+    font-family:'Archivo',system-ui,sans-serif;
+    --cream:#FED7A0;--orange:#FE6D00;--red:#ED1D1D;--brown:#843121;
+  }
+  /* safe area: 200 top, 456 bottom (watermark + platform UI), 76 sides */
+  #safe{position:absolute;left:76px;right:76px;top:200px;bottom:456px}
+
+  .kick{font-size:26px;letter-spacing:.26em;text-transform:uppercase;color:var(--brown);font-weight:600}
+  .hook{margin-top:32px;font-size:92px;line-height:1.06;font-weight:800;color:var(--cream);letter-spacing:-.03em}
+  .hook b{color:var(--orange);font-weight:800}
+
+  #grid{margin:44px auto 0;display:grid;grid-template-columns:repeat(12,44px);gap:6px;width:594px}
+  .c{width:44px;height:44px;background:#141414;transform:scale(.5);opacity:0}
+  .c.on{background:var(--cream);transform:scale(1);opacity:1;
+        transition:transform .2s cubic-bezier(.2,1.7,.4,1),opacity .2s linear,background .25s linear}
+  .c.gain{background:var(--orange)}
+
+  #big{margin-top:50px;font-size:150px;line-height:1;font-weight:800;color:var(--cream);
+       font-variant-numeric:tabular-nums;letter-spacing:-.045em}
+  #big.pop{color:var(--orange)}
+  .sub{margin-top:16px;font-size:30px;letter-spacing:.06em;color:var(--brown);font-weight:600;text-transform:uppercase}
+  .sub #yr{color:var(--cream)}
+
+  #reveal{margin-top:40px;opacity:0;transform:translateY(26px)}
+  #reveal.on{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.3,1)}
+  .row{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-top:3px solid #1c1c1c}
+  .row .l{font-size:26px;letter-spacing:.14em;text-transform:uppercase;color:var(--brown);font-weight:600}
+  .row .n{font-size:58px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage"><div id="safe">
+
+  <div class="kick">Actual Size</div>
+  <div class="hook">Even <b>$7.35</b> a month<br>is not nothing.</div>
+
+  <div id="grid"></div>
+
+  <div id="big">$0</div>
+  <div class="sub">Year <span id="yr">0</span> &nbsp;·&nbsp; 7% a year</div>
+
+  <div id="reveal">
+    <div class="row"><span class="l">You put in</span><span class="n" style="color:var(--cream)">$882</span></div>
+    <div class="row"><span class="l">It became</span><span class="n" style="color:var(--orange)">$1,272</span></div>
+  </div>
+
+</div></div></div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  function fit(){
+    var s=Math.min(window.innerWidth/1080, window.innerHeight/1920);
+    stage.style.transform='scale('+s+')';
+  }
+  fit(); window.addEventListener('resize',fit);
+
+  var M=7.35, r=0.07/12, N=120;
+  var grid=document.getElementById('grid'), big=document.getElementById('big'),
+      yr=document.getElementById('yr'), reveal=document.getElementById('reveal'), cells=[];
+  for(var i=0;i<N;i++){var d=document.createElement('div');d.className='c';grid.appendChild(d);cells.push(d);}
+
+  function fv(mo){return mo<=0?0:M*((Math.pow(1+r,mo)-1)/r);}
+  function money(n){return '$'+Math.round(n).toLocaleString();}
+
+  function run(){
+    cells.forEach(function(c){c.className='c';});
+    big.textContent='$0'; big.classList.remove('pop'); yr.textContent='0'; reveal.classList.remove('on');
+    var t0=null, fill=6400, hold=3600;
+    function step(ts){
+      if(!t0) t0=ts;
+      var p=Math.min((ts-t0)/fill,1), mo=p*N, filled=Math.floor(mo);
+      for(var i=0;i<filled&&i<N;i++) if(!cells[i].classList.contains('on')) cells[i].classList.add('on');
+      if(p>0.72){
+        var g0=Math.floor(N*0.735), g1=g0+Math.floor((p-0.72)/0.28*(N-g0));
+        for(var j=g0;j<g1&&j<N;j++) cells[j].classList.add('gain');
+      }
+      big.textContent=money(fv(mo));
+      yr.textContent=Math.floor(p*10);
+      if(p<1) requestAnimationFrame(step);
+      else{ yr.textContent='10'; big.classList.add('pop'); reveal.classList.add('on');
+            setTimeout(function(){t0=null;requestAnimationFrame(step);},hold); }
+    }
+    requestAnimationFrame(step);
+  }
+  run();
+  document.body.addEventListener('click',function(){location.reload();});
+})();
+</script>
+</body>
+</html>
