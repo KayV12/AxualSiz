@@ -2,13 +2,15 @@
 // src/components/Shatter.tsx
 // A new mechanic: content (big text, a solid shape) fills a box,
 // jagged crack lines flash across it radiating from an off-center
-// impact point, then the box splits into four triangular shards
-// that fly apart and fade, revealing whatever sits behind it.
+// impact point, then the box splits into shards that fly apart and
+// fade, revealing whatever sits behind it.
 //
-// The four shards are the same content rendered four times, each
-// clipped to one triangle of the box (corner, corner, impact
-// point) via clip-path — so any children (text, a shape) shatter
-// without the component needing to know what they are.
+// The shards are the same content rendered N times, each clipped to
+// its own region of the box via clip-path — so any children (text,
+// a shape) shatter without the component needing to know what they
+// are. Defaults to four jagged quadrant shards; pass `shards` (and
+// optionally `crackLines`) to shatter into a different layout, e.g.
+// proportionally-sized pie wedges.
 //
 // Like the other mechanics, this only draws the shatter itself.
 // computeShatterState is exported separately so a caller can fade
@@ -76,14 +78,14 @@ const BSj = { x: 58, y: 70 };
 
 const pt = (p: { x: number; y: number }) => `${p.x}% ${p.y}%`;
 
-type Shard = {
+export type Shard = {
   clipPath: string;
   dx: number;
   dy: number;
   rotate: number;
 };
 
-const SHARDS: Shard[] = [
+const DEFAULT_SHARDS: Shard[] = [
   {
     // top-left
     clipPath: `polygon(${[{ x: 0, y: 0 }, TS, TSj, P, LSj, LS].map(pt).join(", ")})`,
@@ -114,7 +116,7 @@ const SHARDS: Shard[] = [
   },
 ];
 
-const CRACK_LINES = [
+const DEFAULT_CRACK_LINES = [
   `M${TS.x} ${TS.y} L${TSj.x} ${TSj.y} L${P.x} ${P.y} L${LSj.x} ${LSj.y} L${LS.x} ${LS.y}`,
   `M${P.x} ${P.y} L${RSj.x} ${RSj.y} L${RS.x} ${RS.y}`,
   `M${P.x} ${P.y} L${BSj.x} ${BSj.y} L${BS.x} ${BS.y}`,
@@ -127,6 +129,10 @@ type ShatterProps = {
   height: number;
   flyDistance?: number;
   crackColor?: string;
+  /** overrides the default four jagged quadrant shards */
+  shards?: Shard[];
+  /** overrides the default crack-line paths (100x100 coordinate space) */
+  crackLines?: string[];
 };
 
 export const Shatter: React.FC<ShatterProps> = ({
@@ -136,6 +142,8 @@ export const Shatter: React.FC<ShatterProps> = ({
   height,
   flyDistance = 150,
   crackColor = COLORS.black,
+  shards = DEFAULT_SHARDS,
+  crackLines = DEFAULT_CRACK_LINES,
 }) => {
   const frame = useCurrentFrame();
   const { crackOpacity, shardProgress } = computeShatterState(frame, timing);
@@ -147,7 +155,7 @@ export const Shatter: React.FC<ShatterProps> = ({
 
   return (
     <div style={{ position: "relative", width, height, overflow: "hidden" }}>
-      {SHARDS.map((shard, i) => (
+      {shards.map((shard, i) => (
         <div
           key={i}
           style={{
@@ -171,7 +179,7 @@ export const Shatter: React.FC<ShatterProps> = ({
         preserveAspectRatio="none"
         style={{ position: "absolute", inset: 0, opacity: crackOpacity }}
       >
-        {CRACK_LINES.map((d, i) => (
+        {crackLines.map((d, i) => (
           <path
             key={i}
             d={d}

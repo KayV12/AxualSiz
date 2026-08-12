@@ -140,6 +140,10 @@ import {
   VIDEO51_STABLE_SHATTER_DURATION_IN_FRAMES,
   Video51_StableShatter,
 } from "./Video51_StableShatter";
+import {
+  VIDEO52_SCORE_SHATTER_DURATION_IN_FRAMES,
+  Video52_ScoreShatter,
+} from "./Video52_ScoreShatter";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -429,6 +433,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video51-StableShatter"
         component={Video51_StableShatter}
         durationInFrames={VIDEO51_STABLE_SHATTER_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video52-ScoreShatter"
+        component={Video52_ScoreShatter}
+        durationInFrames={VIDEO52_SCORE_SHATTER_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
