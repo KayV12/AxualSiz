@@ -59,7 +59,9 @@ const RING_STEP = 20;
 const MERGED_DISTANCE = 55;
 const ANGULAR_SPEED = 0.02;
 
-const itemRadius = (amount: number) => 8 + 1.1 * Math.sqrt(amount);
+/** amount -> visual dot radius, exported so other orbit-style
+ * mechanics (e.g. a gravity-well variant) size consistently */
+export const orbitItemRadius = (amount: number) => 8 + 1.1 * Math.sqrt(amount);
 
 export const computeOrbitState = (
   frame: number,
@@ -118,7 +120,7 @@ export const computeOrbitState = (
       amount: item.amount,
       x: CENTER + Math.cos(orbitAngle) * radiusFromCenter,
       y: CENTER + Math.sin(orbitAngle) * radiusFromCenter,
-      radius: itemRadius(item.amount),
+      radius: orbitItemRadius(item.amount),
       color,
       merged,
     };
@@ -130,7 +132,7 @@ export const computeOrbitState = (
     amount: freeAmount,
     x: CENTER + Math.cos(freeAngle) * ringRadius,
     y: CENTER + Math.sin(freeAngle) * ringRadius,
-    radius: itemRadius(freeAmount),
+    radius: orbitItemRadius(freeAmount),
     color: freeColor,
     merged: false,
   };
