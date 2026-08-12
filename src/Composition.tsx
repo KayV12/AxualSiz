@@ -76,6 +76,10 @@ import {
   VIDEO34_JUST_THIS_ONCE_DURATION_IN_FRAMES,
   Video34_JustThisOnce,
 } from "./Video34_JustThisOnce";
+import {
+  VIDEO35_TAX_REFUND_DURATION_IN_FRAMES,
+  Video35_TaxRefund,
+} from "./Video35_TaxRefund";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -237,6 +241,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video34-JustThisOnce"
         component={Video34_JustThisOnce}
         durationInFrames={VIDEO34_JUST_THIS_ONCE_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video35-TaxRefund"
+        component={Video35_TaxRefund}
+        durationInFrames={VIDEO35_TAX_REFUND_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
