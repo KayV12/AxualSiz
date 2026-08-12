@@ -164,6 +164,10 @@ import {
   VIDEO65_REPAIR_SCENARIO_DURATION_IN_FRAMES,
   Video65_RepairScenario,
 } from "./Video65_RepairScenario";
+import {
+  VIDEO65A_REPAIR_SCENARIO_DURATION_IN_FRAMES,
+  Video65a_RepairScenario,
+} from "./Video65a_RepairScenario";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -501,6 +505,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video65-RepairScenario"
         component={Video65_RepairScenario}
         durationInFrames={VIDEO65_REPAIR_SCENARIO_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video65a-RepairScenario"
+        component={Video65a_RepairScenario}
+        durationInFrames={VIDEO65A_REPAIR_SCENARIO_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
