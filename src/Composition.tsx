@@ -68,6 +68,10 @@ import {
   VIDEO32_BONUS_PEELED_DURATION_IN_FRAMES,
   Video32_BonusPeeled,
 } from "./Video32_BonusPeeled";
+import {
+  VIDEO33_BANK_FEES_DURATION_IN_FRAMES,
+  Video33_BankFees,
+} from "./Video33_BankFees";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -213,6 +217,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video32-BonusPeeled"
         component={Video32_BonusPeeled}
         durationInFrames={VIDEO32_BONUS_PEELED_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video33-BankFees"
+        component={Video33_BankFees}
+        durationInFrames={VIDEO33_BANK_FEES_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
