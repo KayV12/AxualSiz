@@ -136,6 +136,10 @@ import {
   VIDEO50_UTILIZATION_GAUGE_DURATION_IN_FRAMES,
   Video50_UtilizationGauge,
 } from "./Video50_UtilizationGauge";
+import {
+  VIDEO51_STABLE_SHATTER_DURATION_IN_FRAMES,
+  Video51_StableShatter,
+} from "./Video51_StableShatter";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -417,6 +421,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video50-UtilizationGauge"
         component={Video50_UtilizationGauge}
         durationInFrames={VIDEO50_UTILIZATION_GAUGE_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video51-StableShatter"
+        component={Video51_StableShatter}
+        durationInFrames={VIDEO51_STABLE_SHATTER_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
