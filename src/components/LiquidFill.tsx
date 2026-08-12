@@ -14,6 +14,12 @@
 // computeLiquidLevel is exported separately so a caller can drive
 // its own synced UI (a running total, a cause label) off the same
 // fill/hold/drain timeline without duplicating the interpolation.
+//
+// For curves the fill/hold/drain timeline can't express (e.g. an
+// amortization payoff, which barely moves early and accelerates
+// late), a caller can compute its own 0..1 level per frame and
+// pass it directly via the `level` prop instead of `timing` — the
+// jar just renders whatever level it's given, with no crack.
 // ============================================================
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
@@ -63,7 +69,10 @@ export const computeLiquidLevel = (
 };
 
 type LiquidFillProps = {
-  timing: LiquidFillTiming;
+  /** fill/hold/drain timeline; ignored if `level` is provided */
+  timing?: LiquidFillTiming;
+  /** direct 0..1 level override, for curves the timing can't express */
+  level?: number;
   color?: string;
   width?: number;
   height?: number;
@@ -85,28 +94,31 @@ const CRACK_PATH =
 
 export const LiquidFill: React.FC<LiquidFillProps> = ({
   timing,
+  level: levelOverride,
   color = COLORS.cream,
   width = 300,
   height = 480,
 }) => {
   const frame = useCurrentFrame();
-  const { level, draining } = computeLiquidLevel(frame, timing);
+  const computed = timing ? computeLiquidLevel(frame, timing) : undefined;
+  const level = levelOverride ?? computed?.level ?? 0;
 
   const liquidHeight = level * VB_HEIGHT;
   const liquidY = VB_HEIGHT - liquidHeight;
 
-  const crackOpacity = draining
-    ? interpolate(
-        frame,
-        [
-          timing.drainAtFrame,
-          timing.drainAtFrame + 3,
-          timing.drainAtFrame + (timing.drainFrames ?? 10),
-        ],
-        [0, 1, 0],
-        { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-      )
-    : 0;
+  const crackOpacity =
+    levelOverride === undefined && timing && computed?.draining
+      ? interpolate(
+          frame,
+          [
+            timing.drainAtFrame,
+            timing.drainAtFrame + 3,
+            timing.drainAtFrame + (timing.drainFrames ?? 10),
+          ],
+          [0, 1, 0],
+          { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+        )
+      : 0;
 
   const clipId = "liquid-fill-jar-clip";
 

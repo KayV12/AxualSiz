@@ -112,6 +112,10 @@ import {
   VIDEO44_EMERGENCY_JAR_DURATION_IN_FRAMES,
   Video44_EmergencyJar,
 } from "./Video44_EmergencyJar";
+import {
+  VIDEO45_DEBT_TANK_DURATION_IN_FRAMES,
+  Video45_DebtTank,
+} from "./Video45_DebtTank";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -345,6 +349,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video44-EmergencyJar"
         component={Video44_EmergencyJar}
         durationInFrames={VIDEO44_EMERGENCY_JAR_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video45-DebtTank"
+        component={Video45_DebtTank}
+        durationInFrames={VIDEO45_DEBT_TANK_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
