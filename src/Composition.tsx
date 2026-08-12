@@ -29,6 +29,10 @@ import {
   Video12_RentVsBuy20,
 } from "./Video12_RentVsBuy20";
 import {
+  VIDEO13_REAL_HOURLY_DURATION_IN_FRAMES,
+  Video13_RealHourly,
+} from "./Video13_RealHourly";
+import {
   VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES,
   Video14_RentVsBuy,
 } from "./Video14_RentVsBuy";
@@ -121,6 +125,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video12-RentVsBuy20"
         component={Video12_RentVsBuy20}
         durationInFrames={VIDEO12_RENT_VS_BUY_20_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video13-RealHourly"
+        component={Video13_RealHourly}
+        durationInFrames={VIDEO13_REAL_HOURLY_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
