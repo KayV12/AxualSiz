@@ -132,6 +132,10 @@ import {
   VIDEO49_DTI_GAUGE_DURATION_IN_FRAMES,
   Video49_DtiGauge,
 } from "./Video49_DtiGauge";
+import {
+  VIDEO50_UTILIZATION_GAUGE_DURATION_IN_FRAMES,
+  Video50_UtilizationGauge,
+} from "./Video50_UtilizationGauge";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -405,6 +409,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video49-DtiGauge"
         component={Video49_DtiGauge}
         durationInFrames={VIDEO49_DTI_GAUGE_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video50-UtilizationGauge"
+        component={Video50_UtilizationGauge}
+        durationInFrames={VIDEO50_UTILIZATION_GAUGE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
