@@ -108,6 +108,10 @@ import {
   VIDEO42_SKIPPED_DEPOSIT_DURATION_IN_FRAMES,
   Video42_SkippedDeposit,
 } from "./Video42_SkippedDeposit";
+import {
+  VIDEO44_EMERGENCY_JAR_DURATION_IN_FRAMES,
+  Video44_EmergencyJar,
+} from "./Video44_EmergencyJar";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -333,6 +337,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video42-SkippedDeposit"
         component={Video42_SkippedDeposit}
         durationInFrames={VIDEO42_SKIPPED_DEPOSIT_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video44-EmergencyJar"
+        component={Video44_EmergencyJar}
+        durationInFrames={VIDEO44_EMERGENCY_JAR_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
