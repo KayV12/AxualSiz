@@ -21,10 +21,10 @@ const { fontFamily } = loadFont("normal", {
 
 type Row = { label: string; rate: number; takeHome: number };
 const ROWS: Row[] = [
-  { label: "Country A · 18%", rate: 18, takeHome: 41000 },
-  { label: "Country B · 27%", rate: 27, takeHome: 36500 },
-  { label: "Country C · 34%", rate: 34, takeHome: 33000 },
-  { label: "Country D · 42%", rate: 42, takeHome: 29000 },
+  { label: "United States · 18%", rate: 18, takeHome: 41000 },
+  { label: "United Kingdom · 27%", rate: 27, takeHome: 36500 },
+  { label: "Germany · 34%", rate: 34, takeHome: 33000 },
+  { label: "France · 42%", rate: 42, takeHome: 29000 },
 ];
 
 const MAX_TAKE_HOME = 41000; // best case, used to normalize bar widths on screen
@@ -126,6 +126,19 @@ export const Video29_SameSalaryTax: React.FC = () => {
             },
           ]}
         />
+
+        <div
+          style={{
+            marginTop: 6,
+            fontSize: 20,
+            fontWeight: 600,
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            color: COLORS.brown,
+          }}
+        >
+          Approx. effective rate, single filer
+        </div>
 
         <div style={{ marginTop: 44 }}>
           {ROWS.map((row, i) => (
