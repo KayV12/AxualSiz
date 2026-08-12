@@ -184,6 +184,10 @@ import {
   VIDEO68B_EXPENSE_OVERLAY_DURATION_IN_FRAMES,
   Video68b_ExpenseOverlay,
 } from "./Video68b_ExpenseOverlay";
+import {
+  VIDEO68C_GAP_NEVER_OPENS_DURATION_IN_FRAMES,
+  Video68c_GapNeverOpens,
+} from "./Video68c_GapNeverOpens";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -561,6 +565,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video68b-ExpenseOverlay"
         component={Video68b_ExpenseOverlay}
         durationInFrames={VIDEO68B_EXPENSE_OVERLAY_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video68c-GapNeverOpens"
+        component={Video68c_GapNeverOpens}
+        durationInFrames={VIDEO68C_GAP_NEVER_OPENS_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
