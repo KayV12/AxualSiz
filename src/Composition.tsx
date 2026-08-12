@@ -160,6 +160,10 @@ import {
   VIDEO59_WEDDING_BUDGET_DURATION_IN_FRAMES,
   Video59_WeddingBudget,
 } from "./Video59_WeddingBudget";
+import {
+  VIDEO65_REPAIR_SCENARIO_DURATION_IN_FRAMES,
+  Video65_RepairScenario,
+} from "./Video65_RepairScenario";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -489,6 +493,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video59-WeddingBudget"
         component={Video59_WeddingBudget}
         durationInFrames={VIDEO59_WEDDING_BUDGET_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video65-RepairScenario"
+        component={Video65_RepairScenario}
+        durationInFrames={VIDEO65_REPAIR_SCENARIO_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
