@@ -72,6 +72,10 @@ import {
   VIDEO33_BANK_FEES_DURATION_IN_FRAMES,
   Video33_BankFees,
 } from "./Video33_BankFees";
+import {
+  VIDEO34_JUST_THIS_ONCE_DURATION_IN_FRAMES,
+  Video34_JustThisOnce,
+} from "./Video34_JustThisOnce";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -225,6 +229,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video33-BankFees"
         component={Video33_BankFees}
         durationInFrames={VIDEO33_BANK_FEES_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video34-JustThisOnce"
+        component={Video34_JustThisOnce}
+        durationInFrames={VIDEO34_JUST_THIS_ONCE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
