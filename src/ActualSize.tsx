@@ -6,15 +6,16 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { AssumptionsStrip } from "./components/AssumptionsStrip";
+import { Hook } from "./components/Hook";
+import { Kick } from "./components/Kick";
+import { Punchline } from "./components/Punchline";
+import { ARCHIVO_WEIGHTS, COLORS, SAFE_AREA } from "./theme";
 
 const { fontFamily } = loadFont("normal", {
-  weights: ["400", "600", "800"],
+  weights: [...ARCHIVO_WEIGHTS],
   subsets: ["latin"],
 });
-
-const CREAM = "#FED7A0";
-const ORANGE = "#FE6D00";
-const BROWN = "#843121";
 
 const MONTHLY = 7.35;
 const RATE = 0.07 / 12;
@@ -51,19 +52,6 @@ export const ActualSize: React.FC = () => {
   const value = futureValue(monthsProgress);
   const year = done ? 10 : Math.floor(p * 10);
 
-  const revealOpacity = interpolate(
-    frame,
-    [fillFrames, fillFrames + 15],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
-  const revealTranslate = interpolate(
-    frame,
-    [fillFrames, fillFrames + 15],
-    [26, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
-
   const cells = new Array(MONTHS).fill(0).map((_, i) => {
     const activationFrame = (i / MONTHS) * fillFrames;
     const localP = interpolate(
@@ -78,43 +66,33 @@ export const ActualSize: React.FC = () => {
   });
 
   return (
-    <AbsoluteFill style={{ background: "#000" }}>
+    <AbsoluteFill style={{ background: COLORS.black }}>
       <div
         style={{
           position: "absolute",
-          left: 76,
-          right: 76,
-          top: 200,
-          bottom: 456,
+          left: SAFE_AREA.sides,
+          right: SAFE_AREA.sides,
+          top: SAFE_AREA.top,
+          bottom: SAFE_AREA.bottom,
           fontFamily,
         }}
       >
-        <div
-          style={{
-            fontSize: 26,
-            letterSpacing: "0.26em",
-            textTransform: "uppercase",
-            color: BROWN,
-            fontWeight: 600,
-          }}
-        >
-          Actual Size
-        </div>
+        <Kick>Actual Size</Kick>
 
-        <div
-          style={{
-            marginTop: 32,
-            fontSize: 92,
-            lineHeight: 1.06,
-            fontWeight: 800,
-            color: CREAM,
-            letterSpacing: "-0.03em",
-          }}
-        >
-          Even <span style={{ color: ORANGE }}>$7.35</span> a month
-          <br />
-          is not nothing.
-        </div>
+        <Hook
+          beats={[
+            {
+              fromFrame: 0,
+              line1: (
+                <>
+                  Even <span style={{ color: COLORS.orange }}>$7.35</span> a
+                  month
+                </>
+              ),
+              line2: <>is not nothing.</>,
+            },
+          ]}
+        />
 
         <div
           style={{
@@ -131,7 +109,11 @@ export const ActualSize: React.FC = () => {
               style={{
                 width: 44,
                 height: 44,
-                background: c.on ? (c.gain ? ORANGE : CREAM) : "#141414",
+                background: c.on
+                  ? c.gain
+                    ? COLORS.orange
+                    : COLORS.cream
+                  : "#141414",
                 transform: `scale(${c.on ? 0.5 + 0.5 * c.localP : 0.5})`,
                 opacity: c.on ? c.localP : 0,
               }}
@@ -145,7 +127,7 @@ export const ActualSize: React.FC = () => {
             fontSize: 150,
             lineHeight: 1,
             fontWeight: 800,
-            color: done ? ORANGE : CREAM,
+            color: done ? COLORS.orange : COLORS.cream,
             fontVariantNumeric: "tabular-nums",
             letterSpacing: "-0.045em",
           }}
@@ -153,92 +135,23 @@ export const ActualSize: React.FC = () => {
           {money(value)}
         </div>
 
-        <div
-          style={{
-            marginTop: 16,
-            fontSize: 30,
-            letterSpacing: "0.06em",
-            color: BROWN,
-            fontWeight: 600,
-            textTransform: "uppercase",
-          }}
-        >
-          Year <span style={{ color: CREAM }}>{year}</span> &nbsp;&middot;&nbsp; 7%
-          a year
-        </div>
+        <AssumptionsStrip year={year} ratePerYear="7%" />
 
-        <div
-          style={{
-            marginTop: 40,
-            opacity: revealOpacity,
-            transform: `translateY(${revealTranslate}px)`,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              padding: "18px 0",
-              borderTop: "3px solid #1c1c1c",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 26,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: BROWN,
-                fontWeight: 600,
-              }}
-            >
-              You put in
-            </span>
-            <span
-              style={{
-                fontSize: 58,
-                fontWeight: 800,
-                fontVariantNumeric: "tabular-nums",
-                letterSpacing: "-0.02em",
-                color: CREAM,
-              }}
-            >
-              {money(MONTHLY * MONTHS)}
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-              padding: "18px 0",
-              borderTop: "3px solid #1c1c1c",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 26,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: BROWN,
-                fontWeight: 600,
-              }}
-            >
-              It became
-            </span>
-            <span
-              style={{
-                fontSize: 58,
-                fontWeight: 800,
-                fontVariantNumeric: "tabular-nums",
-                letterSpacing: "-0.02em",
-                color: ORANGE,
-              }}
-            >
-              {money(futureValue(MONTHS))}
-            </span>
-          </div>
-        </div>
+        <Punchline
+          revealAtFrame={fillFrames}
+          rows={[
+            {
+              label: "You put in",
+              value: money(MONTHLY * MONTHS),
+              color: COLORS.cream,
+            },
+            {
+              label: "It became",
+              value: money(futureValue(MONTHS)),
+              color: COLORS.orange,
+            },
+          ]}
+        />
       </div>
     </AbsoluteFill>
   );
