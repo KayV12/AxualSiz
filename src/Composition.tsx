@@ -60,6 +60,10 @@ import {
   VIDEO30_DEBT_RATES_DURATION_IN_FRAMES,
   Video30_DebtRates,
 } from "./Video30_DebtRates";
+import {
+  VIDEO31_SALARY_SLICED_DURATION_IN_FRAMES,
+  Video31_SalarySliced,
+} from "./Video31_SalarySliced";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -189,6 +193,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video30-DebtRates"
         component={Video30_DebtRates}
         durationInFrames={VIDEO30_DEBT_RATES_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video31-SalarySliced"
+        component={Video31_SalarySliced}
+        durationInFrames={VIDEO31_SALARY_SLICED_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
