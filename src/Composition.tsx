@@ -88,6 +88,10 @@ import {
   VIDEO37_TRIAL_COUNTDOWN_DURATION_IN_FRAMES,
   Video37_TrialCountdown,
 } from "./Video37_TrialCountdown";
+import {
+  VIDEO38_COFFEE_GRID_DURATION_IN_FRAMES,
+  Video38_CoffeeGrid,
+} from "./Video38_CoffeeGrid";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -273,6 +277,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video37-TrialCountdown"
         component={Video37_TrialCountdown}
         durationInFrames={VIDEO37_TRIAL_COUNTDOWN_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video38-CoffeeGrid"
+        component={Video38_CoffeeGrid}
+        durationInFrames={VIDEO38_COFFEE_GRID_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
