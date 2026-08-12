@@ -64,6 +64,10 @@ import {
   VIDEO31_SALARY_SLICED_DURATION_IN_FRAMES,
   Video31_SalarySliced,
 } from "./Video31_SalarySliced";
+import {
+  VIDEO32_BONUS_PEELED_DURATION_IN_FRAMES,
+  Video32_BonusPeeled,
+} from "./Video32_BonusPeeled";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -201,6 +205,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video31-SalarySliced"
         component={Video31_SalarySliced}
         durationInFrames={VIDEO31_SALARY_SLICED_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video32-BonusPeeled"
+        component={Video32_BonusPeeled}
+        durationInFrames={VIDEO32_BONUS_PEELED_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
