@@ -25,6 +25,10 @@ import {
   Video11_TackleOrIgnore,
 } from "./Video11_TackleOrIgnore";
 import {
+  VIDEO12_RENT_VS_BUY_20_DURATION_IN_FRAMES,
+  Video12_RentVsBuy20,
+} from "./Video12_RentVsBuy20";
+import {
   VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES,
   Video14_RentVsBuy,
 } from "./Video14_RentVsBuy";
@@ -109,6 +113,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video11-TackleOrIgnore"
         component={Video11_TackleOrIgnore}
         durationInFrames={VIDEO11_TACKLE_OR_IGNORE_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video12-RentVsBuy20"
+        component={Video12_RentVsBuy20}
+        durationInFrames={VIDEO12_RENT_VS_BUY_20_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
