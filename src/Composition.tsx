@@ -156,6 +156,10 @@ import {
   VIDEO57_GROCERY_MARKUP_DURATION_IN_FRAMES,
   Video57_GroceryMarkup,
 } from "./Video57_GroceryMarkup";
+import {
+  VIDEO59_WEDDING_BUDGET_DURATION_IN_FRAMES,
+  Video59_WeddingBudget,
+} from "./Video59_WeddingBudget";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -477,6 +481,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video57-GroceryMarkup"
         component={Video57_GroceryMarkup}
         durationInFrames={VIDEO57_GROCERY_MARKUP_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video59-WeddingBudget"
+        component={Video59_WeddingBudget}
+        durationInFrames={VIDEO59_WEDDING_BUDGET_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
