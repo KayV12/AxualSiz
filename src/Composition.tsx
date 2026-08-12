@@ -96,6 +96,10 @@ import {
   VIDEO39_HOURS_FOR_RENT_DURATION_IN_FRAMES,
   Video39_HoursForRent,
 } from "./Video39_HoursForRent";
+import {
+  VIDEO40_TAKEOUT_GRID_DURATION_IN_FRAMES,
+  Video40_TakeoutGrid,
+} from "./Video40_TakeoutGrid";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -297,6 +301,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video39-HoursForRent"
         component={Video39_HoursForRent}
         durationInFrames={VIDEO39_HOURS_FOR_RENT_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video40-TakeoutGrid"
+        component={Video40_TakeoutGrid}
+        durationInFrames={VIDEO40_TAKEOUT_GRID_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
