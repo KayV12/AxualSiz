@@ -21,6 +21,10 @@ import {
   Video14_RentVsBuy,
 } from "./Video14_RentVsBuy";
 import {
+  VIDEO15_EMERGENCY_FUND_DURATION_IN_FRAMES,
+  Video15_EmergencyFund,
+} from "./Video15_EmergencyFund";
+import {
   VIDEO27_PAYCHECK_BELT_DURATION_IN_FRAMES,
   Video27_PaycheckBelt,
 } from "./Video27_PaycheckBelt";
@@ -73,6 +77,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video14-RentVsBuy"
         component={Video14_RentVsBuy}
         durationInFrames={VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video15-EmergencyFund"
+        component={Video15_EmergencyFund}
+        durationInFrames={VIDEO15_EMERGENCY_FUND_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
