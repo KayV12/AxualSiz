@@ -100,6 +100,10 @@ import {
   VIDEO40_TAKEOUT_GRID_DURATION_IN_FRAMES,
   Video40_TakeoutGrid,
 } from "./Video40_TakeoutGrid";
+import {
+  VIDEO41_LATE_FEE_CASCADE_DURATION_IN_FRAMES,
+  Video41_LateFeeCascade,
+} from "./Video41_LateFeeCascade";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -309,6 +313,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video40-TakeoutGrid"
         component={Video40_TakeoutGrid}
         durationInFrames={VIDEO40_TAKEOUT_GRID_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video41-LateFeeCascade"
+        component={Video41_LateFeeCascade}
+        durationInFrames={VIDEO41_LATE_FEE_CASCADE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
