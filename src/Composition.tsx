@@ -21,6 +21,10 @@ import {
   Video10_StartToday,
 } from "./Video10_StartToday";
 import {
+  VIDEO11_TACKLE_OR_IGNORE_DURATION_IN_FRAMES,
+  Video11_TackleOrIgnore,
+} from "./Video11_TackleOrIgnore";
+import {
   VIDEO14_RENT_VS_BUY_DURATION_IN_FRAMES,
   Video14_RentVsBuy,
 } from "./Video14_RentVsBuy";
@@ -97,6 +101,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video10-StartToday"
         component={Video10_StartToday}
         durationInFrames={VIDEO10_START_TODAY_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video11-TackleOrIgnore"
+        component={Video11_TackleOrIgnore}
+        durationInFrames={VIDEO11_TACKLE_OR_IGNORE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
