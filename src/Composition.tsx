@@ -36,6 +36,10 @@ import {
   VIDEO28_WAGE_VS_BREAD_DURATION_IN_FRAMES,
   Video28_WageVsBread,
 } from "./Video28_WageVsBread";
+import {
+  VIDEO29_SAME_SALARY_TAX_DURATION_IN_FRAMES,
+  Video29_SameSalaryTax,
+} from "./Video29_SameSalaryTax";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -117,6 +121,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video28-WageVsBread"
         component={Video28_WageVsBread}
         durationInFrames={VIDEO28_WAGE_VS_BREAD_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video29-SameSalaryTax"
+        component={Video29_SameSalaryTax}
+        durationInFrames={VIDEO29_SAME_SALARY_TAX_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
