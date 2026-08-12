@@ -144,6 +144,10 @@ import {
   VIDEO52_SCORE_SHATTER_DURATION_IN_FRAMES,
   Video52_ScoreShatter,
 } from "./Video52_ScoreShatter";
+import {
+  VIDEO55_CAR_LOAN_BAR_DURATION_IN_FRAMES,
+  Video55_CarLoanBar,
+} from "./Video55_CarLoanBar";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -441,6 +445,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video52-ScoreShatter"
         component={Video52_ScoreShatter}
         durationInFrames={VIDEO52_SCORE_SHATTER_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video55-CarLoanBar"
+        component={Video55_CarLoanBar}
+        durationInFrames={VIDEO55_CAR_LOAN_BAR_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
