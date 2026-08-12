@@ -120,6 +120,10 @@ import {
   VIDEO46_RETIREMENT_GLASS_DURATION_IN_FRAMES,
   Video46_RetirementGlass,
 } from "./Video46_RetirementGlass";
+import {
+  VIDEO47_ORBIT_EXPENSES_DURATION_IN_FRAMES,
+  Video47_OrbitExpenses,
+} from "./Video47_OrbitExpenses";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -369,6 +373,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video46-RetirementGlass"
         component={Video46_RetirementGlass}
         durationInFrames={VIDEO46_RETIREMENT_GLASS_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video47-OrbitExpenses"
+        component={Video47_OrbitExpenses}
+        durationInFrames={VIDEO47_ORBIT_EXPENSES_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
