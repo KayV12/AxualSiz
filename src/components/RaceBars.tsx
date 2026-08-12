@@ -21,6 +21,15 @@ export type RaceLane = {
   color: string;
   /** bar fill, 0-100 */
   pct: number;
+  /**
+   * Optional two-tone split. The first `basePct` of the track is drawn in
+   * `baseColor` and the remainder of `pct` in `color`, so a lane that starts
+   * at a non-zero value can show how much of its length is growth. On a
+   * zero-based scale two lanes growing at similar-looking rates are hard to
+   * tell apart; their highlighted growth segments are not.
+   */
+  basePct?: number;
+  baseColor?: string;
   /** the big number at the right of the label row */
   value: string;
   /** optional smaller line under the bar */
@@ -92,13 +101,32 @@ export const RaceBars: React.FC<RaceBarsProps> = ({
             overflow: "hidden",
           }}
         >
-          <div
-            style={{
-              width: `${lane.pct}%`,
-              height: "100%",
-              background: lane.color,
-            }}
-          />
+          {lane.basePct === undefined ? (
+            <div
+              style={{
+                width: `${lane.pct}%`,
+                height: "100%",
+                background: lane.color,
+              }}
+            />
+          ) : (
+            <div style={{ display: "flex", height: "100%" }}>
+              <div
+                style={{
+                  width: `${Math.min(lane.basePct, lane.pct)}%`,
+                  height: "100%",
+                  background: lane.baseColor ?? COLORS.brown,
+                }}
+              />
+              <div
+                style={{
+                  width: `${Math.max(0, lane.pct - lane.basePct)}%`,
+                  height: "100%",
+                  background: lane.color,
+                }}
+              />
+            </div>
+          )}
         </div>
 
         {lane.note !== undefined && (

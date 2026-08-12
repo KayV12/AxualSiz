@@ -176,6 +176,10 @@ import {
   VIDEO66B_RAISE_BANKED_DURATION_IN_FRAMES,
   Video66b_RaiseBanked,
 } from "./Video66b_RaiseBanked";
+import {
+  VIDEO68A_INCOME_CLIMB_DURATION_IN_FRAMES,
+  Video68a_IncomeClimb,
+} from "./Video68a_IncomeClimb";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -537,6 +541,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video66b-RaiseBanked"
         component={Video66b_RaiseBanked}
         durationInFrames={VIDEO66B_RAISE_BANKED_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video68a-IncomeClimb"
+        component={Video68a_IncomeClimb}
+        durationInFrames={VIDEO68A_INCOME_CLIMB_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
