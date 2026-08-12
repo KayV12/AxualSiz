@@ -1,8 +1,5 @@
 // ============================================================
-// src/Video27_PaycheckBelt.tsx
-// The $4,000 paycheck travelling through six deductions on a
-// conveyor belt, ending at $247. Same 1080x1920 safe-area
-// pattern as the other Video files.
+// src/Video27_PaycheckBelt.tsx  (v2 — 4 stops, better spaced)
 // ============================================================
 import { loadFont } from "@remotion/google-fonts/Archivo";
 import React from "react";
@@ -21,22 +18,10 @@ const { fontFamily } = loadFont("normal", {
 const GROSS = 4000;
 
 const STOPS: ConveyorStop[] = [
-  { label: "Tax", amount: 880, color: COLORS.brown, atFrame: 60 },
-  { label: "Rent", amount: 1500, color: COLORS.red, atFrame: 100 },
-  { label: "Food", amount: 450, color: COLORS.brown, atFrame: 140 },
-  {
-    label: "Car & insurance",
-    amount: 400,
-    color: COLORS.brown,
-    atFrame: 180,
-  },
-  {
-    label: "Phone & utilities",
-    amount: 180,
-    color: COLORS.brown,
-    atFrame: 220,
-  },
-  { label: "Debt minimum", amount: 343, color: COLORS.red, atFrame: 260 },
+  { label: "Tax", amount: 880, color: COLORS.brown, atFrame: 70 },
+  { label: "Rent", amount: 1500, color: COLORS.red, atFrame: 140 },
+  { label: "Living costs", amount: 1030, color: COLORS.brown, atFrame: 210 },
+  { label: "Debt minimum", amount: 343, color: COLORS.red, atFrame: 280 },
 ];
 
 export const Video27_PaycheckBelt: React.FC = () => {
@@ -62,7 +47,7 @@ export const Video27_PaycheckBelt: React.FC = () => {
               line1: "$4,000 lands.",
               line2: "Watch it travel.",
             },
-            { fromFrame: 290, line1: "Six stops.", line2: "One paycheck." },
+            { fromFrame: 310, line1: "Four stops.", line2: "One paycheck." },
           ]}
         />
 
@@ -70,11 +55,11 @@ export const Video27_PaycheckBelt: React.FC = () => {
           startAmount={GROSS}
           stops={STOPS}
           startFrame={20}
-          endFrame={300}
+          endFrame={320}
         />
 
         <Punchline
-          revealAtFrame={320}
+          revealAtFrame={340}
           rows={[
             { label: "Started with", value: "$4,000", color: COLORS.cream },
             { label: "Made it through", value: "$247", color: COLORS.orange },
@@ -85,4 +70,4 @@ export const Video27_PaycheckBelt: React.FC = () => {
   );
 };
 
-export const VIDEO27_PAYCHECK_BELT_DURATION_IN_FRAMES = 430;
+export const VIDEO27_PAYCHECK_BELT_DURATION_IN_FRAMES = 450;

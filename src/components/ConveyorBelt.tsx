@@ -1,9 +1,9 @@
 // ============================================================
-// src/components/ConveyorBelt.tsx
-// A money figure travels left -> right along a track. At each
-// "stop" a grabber drops down, intercepts it, and the number
-// shrinks — the belt keeps moving after each hit. Built for
-// anticipation: the viewer is watching to see what survives.
+// src/components/ConveyorBelt.tsx  (v2 — decluttered)
+// Money travels along a track. Only the CURRENT/just-hit stop
+// shows its full label; earlier stops shrink to a small dot +
+// amount so the screen never shows more than one loud thing
+// at a time. Same track/puck idea as v1, spacing reworked.
 // ============================================================
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
@@ -11,20 +11,19 @@ import { COLORS } from "../theme";
 
 export type ConveyorStop = {
   label: string;
-  amount: number; // amount removed at this stop
-  color: string; // grabber + label color
-  /** frame this stop's grabber drops and hits the money */
+  amount: number;
+  color: string;
   atFrame: number;
 };
 
 type ConveyorBeltProps = {
   startAmount: number;
   stops: ConveyorStop[];
-  /** frame the money starts travelling */
   startFrame?: number;
-  /** frame the money finishes travelling (reaches the right edge) */
   endFrame: number;
   trackWidth?: number;
+  /** how long (frames) a stop stays "loud" before receding */
+  focusFrames?: number;
 };
 
 const money = (n: number) => `$${Math.round(n).toLocaleString()}`;
@@ -34,33 +33,30 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   stops,
   startFrame = 0,
   endFrame,
-  trackWidth = 928, // 1080 - 76*2 safe-area width
+  trackWidth = 928,
+  focusFrames = 46,
 }) => {
   const frame = useCurrentFrame();
   const sorted = [...stops].sort((a, b) => a.atFrame - b.atFrame);
 
-  // running remaining amount at current frame
   const remaining =
     startAmount -
     sorted.reduce((sum, s) => (frame >= s.atFrame ? sum + s.amount : sum), 0);
 
-  // horizontal position of the money puck, 0 -> trackWidth
   const puckX = interpolate(frame, [startFrame, endFrame], [0, trackWidth], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  const stopX = (stop: ConveyorStop) =>
-    interpolate(stop.atFrame, [startFrame, endFrame], [0, trackWidth], {
+  const stopX = (s: ConveyorStop) =>
+    interpolate(s.atFrame, [startFrame, endFrame], [0, trackWidth], {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     });
 
-  // puck pulses/shrinks briefly at the moment of each hit
   const puckScale = sorted.reduce((scale, s) => {
-    const hitProgress = frame - s.atFrame;
-    if (hitProgress >= 0 && hitProgress < 14) {
-      const bump = interpolate(hitProgress, [0, 7, 14], [1, 0.78, 1], {
+    const hp = frame - s.atFrame;
+    if (hp >= 0 && hp < 14) {
+      const bump = interpolate(hp, [0, 7, 14], [1, 0.8, 1], {
         extrapolateLeft: "clamp",
         extrapolateRight: "clamp",
       });
@@ -70,12 +66,14 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   }, 1);
 
   return (
-    <div style={{ position: "relative", height: 340, marginTop: 40 }}>
-      {/* track */}
+    // extra top room so the focused label (which pops up to
+    // top: -110 relative to this container) clears the Hook
+    // headline above instead of overlapping it
+    <div style={{ position: "relative", height: 300, marginTop: 150 }}>
       <div
         style={{
           position: "absolute",
-          top: 170,
+          top: 240,
           left: 0,
           width: trackWidth,
           height: 6,
@@ -83,39 +81,62 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
         }}
       />
 
-      {/* grabbers + labels, one per stop */}
       {sorted.map((s, i) => {
         const x = stopX(s);
         const hit = frame >= s.atFrame;
+        const age = frame - s.atFrame; // how long since this stop fired
+        const isFocused = hit && age < focusFrames;
+
+        // recede: full label while focused, shrink to a dot + small amount after
+        const labelOpacity = isFocused
+          ? interpolate(age, [0, 10], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            })
+          : hit
+            ? 0.55
+            : 0.25;
+        const labelScale = isFocused
+          ? 1
+          : hit
+            ? interpolate(age, [focusFrames, focusFrames + 20], [1, 0.6], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })
+            : 0.6;
+
         const dropY = interpolate(
           frame,
           [s.atFrame - 10, s.atFrame],
-          [-90, 0],
+          [-70, 0],
           { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
         );
+
         return (
-          <div key={i} style={{ position: "absolute", left: x - 3, top: 0 }}>
+          <div key={i} style={{ position: "absolute", left: x - 2, top: 0 }}>
             <div
               style={{
-                width: 6,
-                height: 170,
+                width: 4,
+                height: 240,
                 background: hit ? s.color : "#2a2a2a",
-                transform: `translateY(${hit ? dropY : -90}px)`,
+                transform: `translateY(${hit ? dropY : -70}px)`,
+                opacity: hit ? 1 : 0.4,
               }}
             />
             <div
               style={{
                 position: "absolute",
-                top: -46,
-                left: -70,
-                width: 146,
+                top: isFocused ? -110 : -58,
+                left: -90,
+                width: 180,
                 textAlign: "center",
-                opacity: hit ? 1 : 0.35,
+                opacity: labelOpacity,
+                transform: `scale(${labelScale})`,
               }}
             >
               <div
                 style={{
-                  fontSize: 20,
+                  fontSize: isFocused ? 24 : 18,
                   fontWeight: 600,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
@@ -126,7 +147,7 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
               </div>
               <div
                 style={{
-                  fontSize: 26,
+                  fontSize: isFocused ? 34 : 22,
                   fontWeight: 800,
                   color: s.color,
                   fontVariantNumeric: "tabular-nums",
@@ -139,13 +160,12 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
         );
       })}
 
-      {/* the money puck itself */}
       <div
         style={{
           position: "absolute",
-          top: 170 - 42,
-          left: puckX - 60,
-          width: 120,
+          top: 240 - 42,
+          left: puckX - 62,
+          width: 124,
           height: 84,
           background: COLORS.cream,
           display: "flex",
