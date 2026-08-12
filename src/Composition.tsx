@@ -128,6 +128,10 @@ import {
   VIDEO48_ORBIT_DEBTS_DURATION_IN_FRAMES,
   Video48_OrbitDebts,
 } from "./Video48_OrbitDebts";
+import {
+  VIDEO49_DTI_GAUGE_DURATION_IN_FRAMES,
+  Video49_DtiGauge,
+} from "./Video49_DtiGauge";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./theme";
 
 export const RemotionCompositions: React.FC = () => {
@@ -393,6 +397,14 @@ export const RemotionCompositions: React.FC = () => {
         id="Video48-OrbitDebts"
         component={Video48_OrbitDebts}
         durationInFrames={VIDEO48_ORBIT_DEBTS_DURATION_IN_FRAMES}
+        fps={30}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+      />
+      <Composition
+        id="Video49-DtiGauge"
+        component={Video49_DtiGauge}
+        durationInFrames={VIDEO49_DTI_GAUGE_DURATION_IN_FRAMES}
         fps={30}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
